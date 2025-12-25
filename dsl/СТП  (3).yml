@@ -1,0 +1,348 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 'СТП '
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/gemini:0.7.2@6e53b92877de2507ce83f2fc32ddf54a9662e4b5ef9e7e5d17bd18153a6485da
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/mistralai:0.0.4@4684c02e639dc144cb36da33bb0ae7e69ec6996c63d2a6f157f8f3264bbc24bc
+    version: null
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: document-extractor
+      id: 1765725837978-source-1765726152603-target
+      selected: false
+      source: '1765725837978'
+      sourceHandle: source
+      target: '1765726152603'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: knowledge-retrieval
+      id: 1765726152603-source-1766595619469-target
+      source: '1765726152603'
+      sourceHandle: source
+      target: '1766595619469'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1766595619469-source-llm-target
+      source: '1766595619469'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: llm-source-1766642416792-target
+      source: llm
+      sourceHandle: source
+      target: '1766642416792'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1766642416792-source-answer-target
+      source: '1766642416792'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: User Input
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          default: ''
+          hint: ''
+          label: Doc
+          max_length: 48
+          options: []
+          placeholder: ''
+          required: true
+          type: file
+          variable: Doc
+      height: 109
+      id: '1765725837978'
+      position:
+        x: 0
+        y: 0
+      positionAbsolute:
+        x: 0
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1765726152603'
+          - text
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 10
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemini-3-flash-preview
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 084f8638-6d31-4f64-9fcd-05891bc9031a
+          role: system
+          text: 'Действуй как эксперт по интегрированной системе менеджмента качества
+            (ИСМ) на производственном предприятии со стажем 10+ лет. Проанализируй
+            {{#context#}} и определи:
+
+            Соответствует ли он требованиям ГОСТ ISO 9001-2015 для СМК?
+
+            Все ли обязательные разделы и пункты присутствуют и правильно оформлены
+            (например, политика в области качества, цели и задачи, процедуры контроля,
+            инструкции, формы записей)?
+
+            Есть ли несоответствия, дублирующая информация, неактуальные формулировки
+            или устаревшие ссылки на документы/стандарты?
+
+            Дай рекомендации по исправлению выявленных ошибок и улучшению структуры
+            или наполнения документа.
+
+            Если обнаружено нарушение, укажи, на какой пункт стандарта или внутреннего
+            положения оно ссылается.
+
+            Поставь оценку соответствия требованиям из пп. 1-2, где 0 - вообще не
+            соответствует, а а 10 - соответствует полностью.
+
+            Форматируй отчет следующим образом:
+
+            - Оценка - текстом
+
+            - Таблица 1: выявленное несоответствие ГОСТу — Какому пункту или положению
+            ГОСТа не соответствует — рекомендация по исправлению
+
+            '
+        selected: false
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: llm
+      position:
+        x: 1026
+        y: 11
+      positionAbsolute:
+        x: 1026
+        y: 11
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1766642416792.text#}}'
+        selected: false
+        title: Answer
+        type: answer
+        variables: []
+      height: 102
+      id: answer
+      position:
+        x: 1710
+        y: 4
+      positionAbsolute:
+        x: 1710
+        y: 4
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        is_array_file: false
+        selected: false
+        title: Doc Extractor
+        type: document-extractor
+        variable_selector:
+        - '1765725837978'
+        - Doc
+      height: 104
+      id: '1765726152603'
+      position:
+        x: 342
+        y: 3
+      positionAbsolute:
+        x: 342
+        y: 3
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids: []
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: weighted_score
+          top_k: 4
+          weights:
+            keyword_setting:
+              keyword_weight: 0.3
+            vector_setting:
+              embedding_model_name: embedding-001
+              embedding_provider_name: langgenius/gemini/google
+              vector_weight: 0.7
+            weight_type: customized
+        query_attachment_selector: []
+        query_variable_selector:
+        - '1765725837978'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: Knowledge Retrieval
+        type: knowledge-retrieval
+      height: 52
+      id: '1766595619469'
+      position:
+        x: 684
+        y: 29
+      positionAbsolute:
+        x: 684
+        y: 29
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - llm
+          - text
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: ministral-8b-latest
+          provider: langgenius/mistralai/mistralai
+        prompt_template:
+        - id: ee06ed4f-d660-49ea-a552-fa4f77cc51cd
+          role: system
+          text: Проанализируй отчет в {{#context#}} и улучшь его
+        selected: false
+        title: LLM 2
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1766642416792'
+      position:
+        x: 1368
+        y: 11
+      positionAbsolute:
+        x: 1368
+        y: 11
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.7
+  rag_pipeline_variables: []
