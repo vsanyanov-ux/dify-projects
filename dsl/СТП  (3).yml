@@ -9,12 +9,12 @@ dependencies:
 - current_identifier: null
   type: marketplace
   value:
-    marketplace_plugin_unique_identifier: langgenius/gemini:0.7.2@6e53b92877de2507ce83f2fc32ddf54a9662e4b5ef9e7e5d17bd18153a6485da
+    marketplace_plugin_unique_identifier: langgenius/mistralai:0.0.4@4684c02e639dc144cb36da33bb0ae7e69ec6996c63d2a6f157f8f3264bbc24bc
     version: null
 - current_identifier: null
   type: marketplace
   value:
-    marketplace_plugin_unique_identifier: langgenius/mistralai:0.0.4@4684c02e639dc144cb36da33bb0ae7e69ec6996c63d2a6f157f8f3264bbc24bc
+    marketplace_plugin_unique_identifier: shamspias/gigachat:0.0.1@f0e883cb3f3bd4dc3b4af56193bbee2f07d2e8799a586dd2f7c37765eb0a4195
     version: null
 kind: app
 version: 0.5.0
@@ -116,9 +116,64 @@ workflow:
     - data:
         isInLoop: false
         sourceType: llm
-        targetType: answer
-      id: 1766642416792-source-answer-target
+        targetType: http-request
+      id: 1766642416792-source-1766670321096-target
       source: '1766642416792'
+      sourceHandle: source
+      target: '1766670321096'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: answer
+      id: 1766670321096-source-answer-target
+      source: '1766670321096'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1766642416792-source-17666719858050-target
+      source: '1766642416792'
+      sourceHandle: source
+      target: '17666719858050'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: http-request
+      id: 1766642416792-source-17666720737940-target
+      source: '1766642416792'
+      sourceHandle: source
+      target: '17666720737940'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: answer
+      id: 17666719858050-source-answer-target
+      source: '17666719858050'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: answer
+      id: 17666720737940-source-answer-target
+      source: '17666720737940'
       sourceHandle: source
       target: answer
       targetHandle: target
@@ -148,11 +203,11 @@ workflow:
       height: 109
       id: '1765725837978'
       position:
-        x: 0
-        y: 0
+        x: -10
+        y: -18
       positionAbsolute:
-        x: 0
-        y: 0
+        x: -10
+        y: -18
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -179,8 +234,8 @@ workflow:
           completion_params:
             temperature: 0.7
           mode: chat
-          name: gemini-3-flash-preview
-          provider: langgenius/gemini/google
+          name: ministral-8b-latest
+          provider: langgenius/mistralai/mistralai
         prompt_template:
         - id: 084f8638-6d31-4f64-9fcd-05891bc9031a
           role: system
@@ -215,19 +270,19 @@ workflow:
 
             '
         selected: false
-        title: LLM
+        title: Анализатор
         type: llm
         vision:
           enabled: false
       height: 88
       id: llm
       position:
-        x: 1026
-        y: 11
+        x: 960.2857142857142
+        y: 3
       positionAbsolute:
-        x: 1026
-        y: 11
-      selected: true
+        x: 960.2857142857142
+        y: 3
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -241,11 +296,11 @@ workflow:
       height: 102
       id: answer
       position:
-        x: 1710
-        y: 4
+        x: 1897.142857142857
+        y: 3
       positionAbsolute:
-        x: 1710
-        y: 4
+        x: 1897.142857142857
+        y: 3
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -273,7 +328,8 @@ workflow:
       type: custom
       width: 242
     - data:
-        dataset_ids: []
+        dataset_ids:
+        - D8cdli+2oaD5CMDAAYa0S/27maMesrLFzoD1718efpDgJTX+EpOP8eX4EOV6Wa1k
         multiple_retrieval_config:
           reranking_enable: false
           reranking_mode: weighted_score
@@ -282,8 +338,8 @@ workflow:
             keyword_setting:
               keyword_weight: 0.3
             vector_setting:
-              embedding_model_name: embedding-001
-              embedding_provider_name: langgenius/gemini/google
+              embedding_model_name: mistral-embed
+              embedding_provider_name: langgenius/mistralai/mistralai
               vector_weight: 0.7
             weight_type: customized
         query_attachment_selector: []
@@ -294,14 +350,14 @@ workflow:
         selected: false
         title: Knowledge Retrieval
         type: knowledge-retrieval
-      height: 52
+      height: 90
       id: '1766595619469'
       position:
-        x: 684
-        y: 29
+        x: 638.2857142857143
+        y: 3
       positionAbsolute:
-        x: 684
-        y: 29
+        x: 638.2857142857143
+        y: 3
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -317,32 +373,161 @@ workflow:
           completion_params:
             temperature: 0.7
           mode: chat
-          name: ministral-8b-latest
-          provider: langgenius/mistralai/mistralai
+          name: GigaChat-2
+          provider: shamspias/gigachat/gigachat
         prompt_template:
         - id: ee06ed4f-d660-49ea-a552-fa4f77cc51cd
           role: system
           text: Проанализируй отчет в {{#context#}} и улучшь его
         selected: false
-        title: LLM 2
+        title: Улучшатель
         type: llm
         vision:
           enabled: false
       height: 88
       id: '1766642416792'
       position:
-        x: 1368
-        y: 11
+        x: 1269.4285714285716
+        y: 3
       positionAbsolute:
-        x: 1368
-        y: 11
+        x: 1269.4285714285716
+        y: 3
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-20
+            key: ''
+            type: text
+            value: "{\n  \"traceId\": \"{{#1766642416792.text#}}\",\n  \"name\": \"\
+              accuracy\",\n  \"value\": 0.9,\n  \"dataType\": \"NUMERIC\",\n  \"comment\"\
+              : \"Ответ соответствует эталону\"\n}"
+          type: json
+        headers: Authorization:Basic cGstbGYtM2NjNWFkZmItNzU1MC00YTYwLTllMjAtMWNlYTk4ODA0M2FlOnNrLWxmLWMxNjA1NTE3LWQ5YjUtNDEwZi04NzEzLTEzMWMxYjIyNzIxMw==
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP Request
+        type: http-request
+        url: https://us.cloud.langfuse.com/api/public/scores
+        variables: []
+      height: 138
+      id: '1766670321096'
+      position:
+        x: 1583.8571428571427
+        y: 3
+      positionAbsolute:
+        x: 1583.8571428571427
+        y: 3
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-20
+            key: ''
+            type: text
+            value: "{\n  \"traceId\": \"{{#1766642416792.text#}}\",\n\"name\": \"\
+              speed_score\",\n  \"value\": 0.9,\n  \"dataType\": \"NUMERIC\",\n\"\
+              comment\": \"Оценка скорости ответа\"\n}"
+          type: json
+        headers: Authorization:Basic cGstbGYtM2NjNWFkZmItNzU1MC00YTYwLTllMjAtMWNlYTk4ODA0M2FlOnNrLWxmLWMxNjA1NTE3LWQ5YjUtNDEwZi04NzEzLTEzMWMxYjIyNzIxMw==
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP Request (1)
+        type: http-request
+        url: https://us.cloud.langfuse.com/api/public/scores
+        variables: []
+      height: 138
+      id: '17666719858050'
+      position:
+        x: 1583.8571428571427
+        y: 196.85714285714292
+      positionAbsolute:
+        x: 1583.8571428571427
+        y: 196.85714285714292
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-20
+            key: ''
+            type: text
+            value: "{\n  \"traceId\": \"{{#1766642416792.text#}}\",\n\"name\": \"\
+              cost_score\",\n  \"value\": 0.9,\n  \"dataType\": \"NUMERIC\",\n\"comment\"\
+              : \"Оценка стоимости по токенам\"\n}"
+          type: json
+        headers: Authorization:Basic cGstbGYtM2NjNWFkZmItNzU1MC00YTYwLTllMjAtMWNlYTk4ODA0M2FlOnNrLWxmLWMxNjA1NTE3LWQ5YjUtNDEwZi04NzEzLTEzMWMxYjIyNzIxMw==
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP Request (2)
+        type: http-request
+        url: https://us.cloud.langfuse.com/api/public/scores
+        variables: []
+      height: 138
+      id: '17666720737940'
+      position:
+        x: 1592.4285714285713
+        y: 406.85714285714295
+      positionAbsolute:
+        x: 1592.4285714285713
+        y: 406.85714285714295
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     viewport:
-      x: 0
-      y: 0
+      x: -677.2
+      y: 322.20000000000005
       zoom: 0.7
   rag_pipeline_variables: []
